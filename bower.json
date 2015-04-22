@@ -1,0 +1,20 @@
+{
+  "name": "feDemo",
+  "version": "0.0.0",
+  "authors": [
+    "wikies.wan <wikies.wan@vipshop.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.8.3",
+    "jquery": "1.10",
+    "domReady": "~2.0.1"
+  }
+}
