@@ -31,9 +31,6 @@ body {
 .g-canvas {
   box-sizing: border-box; }
 
-svg {
-  border: 1px solid #000; }
-
 #left {
   float: left;
   width: 84px;
@@ -50,6 +47,21 @@ svg {
     background: #fff; }
   #left .current {
     background: #fff; }
+
+svg {
+  border: 1px solid #000; }
+  svg .circle {
+    stroke: #f00;
+    fill: #fff;
+    fill-opacity: 0; }
+  svg .point {
+    stroke-width: 2;
+    stroke: #00f;
+    fill: #f00;
+    fill-opacity: 1; }
+  svg .line {
+    stroke-width: 2;
+    stroke: #00f; }
 
 
 /*# sourceMappingURL=.sass-map/main.css.map */

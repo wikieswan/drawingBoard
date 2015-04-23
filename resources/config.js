@@ -30,36 +30,7 @@ domReady(function () {
         .attr('height',height+margin.top+margin.bottom);
 
     var ghStack = [];
-    
-    $('svg').on('click',function(e){
-        if(!e) e = window.event;
-        var x = e.offsetX,
-            y = e.offsetY;
-        var cate = $('#left .current').data('cate');
-        var target = e.target;
-       
 
-        if($(target).attr('obj')==='gh'){
-
-            return false;
-        }
-      
-        if(cate==='select'){
-
-        }
-        else if(cate==='point'){
-            var _point = point(svg,x,y);
-            ghStack.push({
-                type:'add',
-                cate:'point',
-                value:_point
-            });
-
-        }
-        else if(cate==='line'){
-
-        }
-    });
     function stopBubble(e) {
         //如果提供了事件对象，则这是一个非IE浏览器
         if ( e && e.stopPropagation )
@@ -70,15 +41,26 @@ domReady(function () {
             window.event.cancelBubble = true;
     }
     $('.svg').on('mousedown',function(e){
-        console.log(22)
- 
+    
+        if(e.button!==0&&e.button!==1){
+            return false;
+        }
         if(!e) e = window.event;
         var x0 = e.offsetX,
             y0 = e.offsetY;
         var cate = $('#left .current').data('cate');
-        if(cate==='line'){
+        if(cate==='point'){
+            var _point = point(svg,x0,y0);
+            ghStack.push({
+                type:'add',
+                cate:'point',
+                value:_point
+            });
+
+        }
+        else if(cate==='line'){
             var _line = line(svg,x0,y0,x0,y0);
-            $(this).on('mousemove',function(em){
+            $(this).off('mousemove').on('mousemove',function(em){
                 var xm = em.offsetX,
                     ym = em.offsetY;
                 //按下shift键画水平直线
@@ -93,19 +75,18 @@ domReady(function () {
                 
             });
             
-            $(this).on('mouseup',function(ee){
+            $(this).off('mouseup').on('mouseup',function(eu){
                 $('.svg').off('mousemove');
                 var _x1 = _line.line.attr('x1'),
                     _y1 = _line.line.attr('y1'),
                     _x2 = _line.line.attr('x2'),
                     _y2 = _line.line.attr('y2');
-                console.log(_x1-_x2===0&&_y1-_y2===0)
+                
                 if(_x1-_x2===0&&_y1-_y2===0){
                     removeGh({
                         type:'add',
                         cate:'line',
-                        value : _line,
-
+                        value : _line
                     })
                 }
                 else{
@@ -117,8 +98,41 @@ domReady(function () {
                 }
             });
         }
+        else if(cate==='circle'){
+            var _circle = circle(svg,x0,y0,2);
+             $(this).off('mousemove').on('mousemove',function(em){
+                var xm = em.offsetX,
+                    ym = em.offsetY;
+                var _circleR = mathR(x0,y0,xm,ym);
+                _circle.reDraw(_circleR);
+             });
+             $(this).off('mouseup').on('mouseup',function(eu){
+                $('.svg').off('mousemove');
+                var r = _circle.circle.attr('r');
+                if(r==2){
+                    removeGh({
+                        type:'add',
+                        cate:'circle',
+                        value : _circle
+                    })
+                }
+                else{
+                    ghStack.push({
+                        type:'add',
+                        cate:'circle',
+                        value : _circle
+                    });
+                }
+             });
+        }
         
-    })
+    });
+
+    function mathR (x0,y0,x1,y1){
+        var a = Math.abs(x0-x1),
+            b = Math.abs(y0-y1);
+        return Math.sqrt(a*a+b*b);
+    }
 
 
     $(document).keydown(function(e){

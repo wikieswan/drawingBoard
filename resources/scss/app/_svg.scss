@@ -1,0 +1,19 @@
+svg{
+	border:1px solid #000;
+	.circle{
+		stroke:#f00;
+		fill:#fff;
+		fill-opacity:0;		
+	}
+	.point{
+		stroke-width:2;
+		stroke:#00f;
+		fill:#f00;
+		fill-opacity:1;	
+	}
+	.line{
+		stroke-width:2;
+		stroke:#00f;
+		
+	}
+}

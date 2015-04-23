@@ -9,8 +9,7 @@ define(['mod/point'],function(point){
 				'y1':y1,
 				'x2':x2,
 				'y2':y2,
-				'stroke':'black',
-				'stroke-width':2
+				'class':'line'
 			});
 		self.endP = point(self.g,x2,y2);
 	}
@@ -26,11 +25,16 @@ define(['mod/point'],function(point){
 		})
 	}
 
-
-
-
 	return function(svg,x1,y1,x2,y2){
 		var line = new Line(svg,x1,y1,x2,y2);
+		svg.selectAll('.line').on('mouseenter',function(){
+					console.log(11)
+					console.log(this)
+			this.setAttribute('stroke-width',4);
+		}).on('mouseout',function(){
+			this.setAttribute('stroke-width',2);
+		});
+
 		return line;
 	}
 });

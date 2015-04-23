@@ -9,6 +9,7 @@ define([],function  () {
 				'obj' : 'gh'
 			});
 		svg.selectAll('.point').on('mouseenter',function(){
+	
 			this.setAttribute('r',6);
 		}).on('mouseout',function(){
 			this.setAttribute('r',4)

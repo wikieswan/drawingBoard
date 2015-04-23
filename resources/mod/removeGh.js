@@ -3,7 +3,6 @@ define([],function(){
 		var type = ghObj['type'],
 			cate = ghObj['cate'],
 			obj = ghObj['value'];
-		console.log(ghObj)
 		if(type==='add'){
 			if(cate==='point'){
 				obj.remove();
@@ -12,6 +11,11 @@ define([],function(){
 				obj.startP.remove();
 				obj.line.remove();
 				obj.endP.remove();
+			}
+			else if(cate==='circle'){
+				obj.center.remove();
+				obj.circle.remove();
+			
 			}
 		}
 		else if(type==='mod'){
